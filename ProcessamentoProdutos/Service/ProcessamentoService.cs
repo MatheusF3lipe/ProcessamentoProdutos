@@ -10,7 +10,7 @@ namespace ProcessamentoProdutosAplication.Service
     {
         private readonly IConnection _connection;
         private readonly IModel _channel;
-        private List<string> lista = new List<string>();
+        private List<string> _listaProcessamento = new List<string>();
         public ProcessamentoService()
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
@@ -34,7 +34,7 @@ namespace ProcessamentoProdutosAplication.Service
                                  body: body);
                 Console.WriteLine($"{guidCliente} -- Em processamento");
                 return $"{pedido.ClienteId} foi encaminhado para o processamento com a id única {guidCliente}. Consulte no método get para verificar o processamento!";
-            });         
+            });
         }
 
         public async Task<List<string>> VerificarProcessamento()
@@ -47,13 +47,14 @@ namespace ProcessamentoProdutosAplication.Service
                 {
                     var body = resultado.Body.ToArray();
                     var message = Encoding.UTF8.GetString(body);
-                    lista.Add(message);
+                    _listaProcessamento.Add(message);
                     Console.WriteLine($"{message} - Processado");
                     resultado = _channel.BasicGet("pedido", true);
                 }
-                return lista;
+                return _listaProcessamento;
             });
         }
-            
+
     }
+
 }

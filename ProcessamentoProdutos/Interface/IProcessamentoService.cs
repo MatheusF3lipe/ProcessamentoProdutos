@@ -10,6 +10,6 @@ namespace ProcessamentoProdutosAplication.Interface
     public interface IProcessamentoService
     {
         public Task <string> ProcessarProduto(Pedido pedido);
-        public Task< List<string> >VerificarProcessamento();
+        public Task<List<string>>VerificarProcessamento();
     }
 }
