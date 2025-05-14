@@ -9,6 +9,7 @@ namespace ProcessamentoProdutosAplication.Interface
 {
     public interface IProcessamentoService
     {
-        public void ProcessarProduto(Pedido pedido);
+        public string ProcessarProduto(Pedido pedido);
+        public List<string> VerificarProcessamento();
     }
 }

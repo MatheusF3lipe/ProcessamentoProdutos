@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using ProcessamentoProdutosAplication.Interface;
 using ProcessamentoProdutosDomain.Domain;
 
@@ -11,37 +12,20 @@ namespace ProcessamentoProdutoWeb.Controllers
     public class ProdutoController(IProcessamentoService processamentoService) : ControllerBase
     {
         private readonly IProcessamentoService _processamentoService = processamentoService;
-        // GET: api/<ProdutoController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("Processamento de pedidos")]
+        public async Task<List<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            await Task.Delay(2000);
+            return _processamentoService.VerificarProcessamento();
+ 
         }
 
-        // GET api/<ProdutoController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         // POST api/<ProdutoController>
         [HttpPost("NovoProduto")]
-        public void Post([FromBody] Pedido value)
+        public string Post([FromBody] Pedido value)
         {
-            _processamentoService.ProcessarProduto(value);
-        }
-
-        // PUT api/<ProdutoController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ProdutoController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+           return _processamentoService.ProcessarProduto(value);
         }
     }
 }
