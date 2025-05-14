@@ -18,4 +18,4 @@
 <br>
 <h3><stronger>Atenção</stronger></h3>
 O RabbitMQ está na configuração padrão, portanto apontar para o localhost conforme o print abaixo:
-![image](https://github.com/user-attachments/assets/fe68777e-a155-44c4-9bae-5b3e2bcc3bb8)
+![image](https://github.com/user-attachments/assets/f9c0cc22-998c-49a2-8b3a-e65b3fdb9abd)
