@@ -12,20 +12,26 @@ namespace ProcessamentoProdutoWeb.Controllers
     public class ProdutoController(IProcessamentoService processamentoService) : ControllerBase
     {
         private readonly IProcessamentoService _processamentoService = processamentoService;
-        [HttpGet("Processamento de pedidos")]
-        public async Task<List<string>> Get()
+        [HttpGet("Pedido")]
+        public async Task<ActionResult> Get()
         {
             await Task.Delay(2000);
-            return _processamentoService.VerificarProcessamento();
- 
+            return Ok(_processamentoService.VerificarProcessamento().Select(x => x += " - Processado").ToList());
+
+        }
+        [HttpGet("Pedido/{id}")]
+        public async Task<IActionResult> Get(string id)
+        {
+            await Task.Delay(2000);
+            var pedido = _processamentoService.VerificarProcessamento().FirstOrDefault(x => x.Contains(id));
+            return String.IsNullOrEmpty(pedido) ? NotFound($"Pedido com id {id} não encontrado.") : Ok(pedido += " - Processado");
         }
 
-
         // POST api/<ProdutoController>
-        [HttpPost("NovoProduto")]
-        public string Post([FromBody] Pedido value)
+        [HttpPost("pedidos")]
+        public async Task<IActionResult> Post([FromBody] Pedido value)
         {
-           return _processamentoService.ProcessarProduto(value);
+           return Ok(_processamentoService.ProcessarProduto(value));
         }
     }
 }
